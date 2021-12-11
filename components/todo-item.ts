@@ -67,7 +67,11 @@ export function init() {
 
       const stateData = state.getState();
 
-      stateData.tasks.sort((a, b) => a.checked - b.checked);
+      stateData.tasks.sort(function (a, b) {
+        if (b.checked === a.checked) return b.id - a.id;
+        else if (a.checked) return 1;
+        else return -1;
+      });
 
       stateData.tasks.map((item) => {
         let toDoEl = document.createElement("div");

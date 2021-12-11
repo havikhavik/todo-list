@@ -48,14 +48,19 @@ const state = {
   lastTask() {
     const cs = this.getState();
     const arrayLn = cs.tasks.length;
+
     const lastTask = cs.tasks[arrayLn - 1];
     return lastTask;
   },
 
   lastId() {
     const cs = this.getState();
-    const arrayLn = cs.tasks.length;
-    return arrayLn;
+    const idArray = cs.tasks.map((task) => task.id);
+    const highest = Math.max(...idArray);
+    const lastId = highest + 1;
+
+    console.log(lastId);
+    return lastId;
   },
 
   searchTask(id) {

@@ -677,8 +677,12 @@ const state = {
     },
     lastId () {
         const cs = this.getState();
-        const arrayLn = cs.tasks.length;
-        return arrayLn;
+        const idArray = cs.tasks.map((task)=>task.id
+        );
+        const highest = Math.max(...idArray);
+        const lastId = highest + 1;
+        console.log(lastId);
+        return lastId;
     },
     searchTask (id) {
         const cs = this.getState();
@@ -714,8 +718,11 @@ function init() {
             style.textContent = `\n\n  \n            .todo-style{\n              box-sizing: border-box;\n              background-color:#FFF599;\n              width:100%;\n              max-width:311px;\n              min-height: 112px;\n              margin: 0px;\n              padding: 22px 13px;\n              font-size: 18px;\n              font-family: 'Poppins', sans-serif;\n              font-weight: 400;\n              margin: 20px 0px;\n              display: flex;\n              justify-content: space-between;\n\n            }\n\n          \n\n\n            .container-style{\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                justify-content: space-between;\n            }\n\n            .checkbox-style{\n                width:21px;\n                height:21px;\n            }\n\n            .remove-style{\n                width:21px;\n                height:21px;\n                display:none;\n            }\n  \n    \n    \n        `;
             this.shadow.appendChild(style);
             const stateData = _state.state.getState();
-            stateData.tasks.sort((a, b)=>a.checked - b.checked
-            );
+            stateData.tasks.sort(function(a, b) {
+                if (b.checked === a.checked) return b.id - a.id;
+                else if (a.checked) return 1;
+                else return -1;
+            });
             stateData.tasks.map((item)=>{
                 let toDoEl = document.createElement("div");
                 toDoEl.className = "todo-style";
