@@ -95,6 +95,10 @@ export function init() {
         event.preventDefault();
         let id = state.lastId();
 
+        if (id === -Infinity) {
+          id = 0;
+        }
+
         let item = {
           id: id,
           task: "",

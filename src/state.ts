@@ -5,7 +5,9 @@ const state = {
   listeners: [], // los callbacks
   init() {
     const localData = localStorage.getItem("saved-state");
-    this.setState(JSON.parse(localData));
+    if (localData) {
+      this.setState(JSON.parse(localData));
+    }
   },
 
   getState() {
@@ -56,10 +58,10 @@ const state = {
   lastId() {
     const cs = this.getState();
     const idArray = cs.tasks.map((task) => task.id);
+
     const highest = Math.max(...idArray);
     const lastId = highest + 1;
 
-    console.log(lastId);
     return lastId;
   },
 
